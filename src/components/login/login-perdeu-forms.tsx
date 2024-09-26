@@ -6,39 +6,45 @@ import Input from "@/components/forms/input";
 import ErrorMessage from "../helper/error-message";
 import React from "react";
 import styles from "@/components/login/login-form.module.css";
-import userPost from "@/actions/user-post";
+import passwordLost from "@/actions/password-lost";
 
 function FormButton() {
   const { pending } = useFormStatus();
   return (
     <>
       {pending ? (
-        <Button disabled={pending}>Cadastrando...</Button>
+        <Button disabled={pending}>Enviando...</Button>
       ) : (
-        <Button>Cadastrar</Button>
+        <Button>Enviar Email</Button>
       )}
     </>
   );
 }
 
-export default function LoginCriarForm() {
-  const [state, action] = useFormState(userPost, {
+export default function LoginPerdeuForm() {
+  const [state, action] = useFormState(passwordLost, {
     ok: false,
     error: "",
     data: null,
   });
 
+  const [url, setUrl] = React.useState('');
+
   React.useEffect(() => {
-    if (state.ok) window.location.href = "/conta";
-  }, [state.ok]);
+    setUrl(window.location.href.replace('perdeu', 'resetar'));
+  }, []);
 
   return (
     <form action={action} className={styles.form}>
-      <Input label="Usuário" name="username" type="text" />
-      <Input label="Email" name="email" type="email" />
-      <Input label="Senha" name="password" type="password" />
+      <Input label="Email / Usuário" name="login" type="text" />
+      <input
+        type="hidden"
+        name="url"
+        value={url}
+      />
+      {state.ok ? <p style={{color: '#4c1'}}>Email enviado</p> :  <FormButton />}
       <ErrorMessage error={state.error} />
-      <FormButton />
+     
     </form>
   );
 }
