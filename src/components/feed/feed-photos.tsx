@@ -1,9 +1,9 @@
 import { Photo } from '@/actions/photos-get';
-import Image from 'next/image';
 import Link from 'next/link';
 import styles from './feed.module.css';
+import Image from 'next/image';
 
-export default function FeedPhotos({ photos }: { photos: Photo[]}) {
+export default function FeedPhotos({ photos }: { photos: Photo[] }) {
   return (
     <ul className={`${styles.feed} animeLeft`}>
       {photos.map((photo, i) => (
