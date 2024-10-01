@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import styles from "./photo-content.module.css";
-//import PhotoComments from './PhotoComments';
+import PhotoComments from './photo-comments';
 import PhotoDelete from "./photo-delete";
 import Link from "next/link";
 import { useUser } from "@/context/user-context";
@@ -36,7 +36,7 @@ const PhotoContent = ({ data, single }: {data: PhotoData, single: boolean}) => {
           </ul>
         </div>
       </div>
-      {/*<PhotoComments single={single} id={photo.id} comments={comments} />*/}
+      <PhotoComments single={single} id={photo.id} comments={comments} />
     </div>
   );
 };
