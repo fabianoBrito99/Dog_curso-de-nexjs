@@ -1,19 +1,26 @@
-"use client";
-import React from "react";
-import styles from "./photo-content.module.css";
-import PhotoComments from './photo-comments';
-import PhotoDelete from "./photo-delete";
-import Link from "next/link";
-import { useUser } from "@/context/user-context";
-import Image from "next/image";
-import { PhotoData } from "@/actions/photo-get";
+'use client';
 
-const PhotoContent = ({ data, single }: {data: PhotoData, single: boolean}) => {
+import React from 'react';
+import styles from './photo-content.module.css';
+import PhotoComments from './photo-comments';
+import PhotoDelete from './photo-delete';
+import Link from 'next/link';
+import { useUser } from '@/context/user-context';
+import Image from 'next/image';
+import { PhotoData } from '@/actions/photo-get';
+
+const PhotoContent = ({
+  data,
+  single,
+}: {
+  data: PhotoData;
+  single: boolean;
+}) => {
   const { user } = useUser();
   const { photo, comments } = data;
 
   return (
-    <div className={`${styles.photo} ${single ? styles.single : ""}`}>
+    <div className={`${styles.photo} ${single ? styles.single : ''}`}>
       <div className={styles.img}>
         <Image src={photo.src} alt={photo.title} width={1000} height={1000} />
       </div>

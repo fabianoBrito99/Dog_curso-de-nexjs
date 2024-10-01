@@ -3,7 +3,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import styles from "./photo-comments-form.module.css";
 import EnviarIcon from "@/icons/enviar-icon";
 import ErrorMessage from "../helper/error-message";
-import { comment } from "@/actions/photo-get";
+import { Comment } from "@/actions/photo-get";
 import commentPost from "@/actions/comment-post";
 import React from "react";
 import { stat } from "fs";
@@ -24,7 +24,7 @@ export default function PhotoCommentsForm({
 }: {
   single: boolean;
   id: number;
-  setComments: React.Dispatch<React.SetStateAction<comment[]>>;
+  setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
 }) {
   const [state, action] = useFormState(commentPost, {
     ok: false,

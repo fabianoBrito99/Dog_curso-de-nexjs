@@ -1,21 +1,22 @@
-"use client";
+'use client';
 
-import React from "react";
-import PhotoCommentsForm from "./photo-comments-form";
-import styles from "./photo-comments.module.css";
-import { useUser } from "@/context/user-context";
+import React from 'react';
+import PhotoCommentsForm from './photo-comments-form';
+import styles from './photo-comments.module.css';
+import { useUser } from '@/context/user-context';
+import { Comment } from '@/actions/photo-get';
 
 const PhotoComments = (props: {
   single: boolean;
   id: number;
-  comments: Comment[]
+  comments: Comment[];
 }) => {
   const [comments, setComments] = React.useState(() => props.comments);
   const commentsSection = React.useRef<HTMLUListElement>(null);
-  const {user} = useUser();
+  const { user } = useUser();
 
   React.useEffect(() => {
-    if(commentsSection.current){
+    if (commentsSection.current) {
       commentsSection.current.scrollTop = commentsSection.current.scrollHeight;
     }
   }, [comments]);
@@ -24,7 +25,7 @@ const PhotoComments = (props: {
     <>
       <ul
         ref={commentsSection}
-        className={`${styles.comments} ${props.single ? styles.single : ""}`}
+        className={`${styles.comments} ${props.single ? styles.single : ''}`}
       >
         {comments.map((comment) => (
           <li key={comment.comment_ID}>
