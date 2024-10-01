@@ -1,6 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
+import logout from "@/actions/logout";
+import validateToken from "@/actions/validate-token";
+import React, { useState } from "react";
 
 type User = {
   id: number;
@@ -19,7 +21,7 @@ const UserContext = React.createContext<IUserContext | null>(null);
 export const useUser = () => {
   const context = React.useContext(UserContext);
   if (context === null) {
-    throw new Error('useContext deve estar dentro do Provider');
+    throw new Error("useContext deve estar dentro do Provider");
   }
   return context;
 };
@@ -32,6 +34,14 @@ export function UserContextProvider({
   user: User | null;
 }) {
   const [userState, setUser] = React.useState<User | null>(user);
+
+  React.useEffect(() => {
+    async function validate() {
+      const { ok } = await validateToken();
+      if (!ok) await logout();
+    }
+    if (useState) validate();
+  }, [useState]);
 
   return (
     <UserContext.Provider value={{ user: userState, setUser }}>
